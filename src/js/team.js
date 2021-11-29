@@ -6,7 +6,21 @@ export default class Team {
   }
 
   [Symbol.iterator]() {
-    return this.members[Symbol.iterator]();
+    let currentTeam = 0;
+    const teamIterators = [...this.members.values()];
+    return {
+      next() {
+        if (currentTeam < teamIterators.length) {
+          return {
+            done: false,
+            value: teamIterators[currentTeam++],
+          };
+        }
+        return {
+          done: true,
+        };
+      },
+    };
   }
 }
 
